@@ -46,18 +46,10 @@ public class UserController {
     }
 
     //Viewing a particular user
-    @SuppressWarnings("unlikely-arg-type")
-	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public User getUser( @ModelAttribute("currentUser") User currentUser,@PathVariable Long id )
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+    public User getUser(@PathVariable Long id )
     {
-    	if(currentUser.getType().equals("ADMIN") || currentUser.getId() == id)
-    		if(userDao.getUser( id ) != null)
-    			return userDao.getUser( id );
-    		else
-    			throw new RestException(404,"The requested User not found in the database");
-    	else
-    		throw new RestException(403,"Not an admin and not the current user");
-        
+    	return userDao.getUser( id );
     }
     
     //Adding a particular user
